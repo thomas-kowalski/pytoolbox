@@ -2,7 +2,6 @@
 
 import os
 import sys
-from sympy import root
 import uvipy.sf as sf
 
 def flac(root_samples):
