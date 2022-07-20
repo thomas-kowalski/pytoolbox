@@ -15,9 +15,15 @@ def flac(root_samples):
         except OSError as e:
             pass
     
+    # clean old wav files
     for file in sf.browse(root_samples):
         if file.endswith(".wav"):
             os.remove(file)
+
+    # rename flac > wav
+    for file in sf.browse(root_samples):
+        if file.endswith(".flac"):
+            os.rename(file, file.replace(".flac", ".wav"))
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
