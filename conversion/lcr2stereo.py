@@ -25,6 +25,7 @@ def main(folder):
         y = np.array([lc, rc]).transpose()
 
         filename = os.path.split(sample)[1]
+        # print(filename)
         sf.write(os.path.join(genpath, filename), y, sr, sf.info(sample).subtype, sf.get_chunks(sample))
 
 if __name__ == "__main__":
