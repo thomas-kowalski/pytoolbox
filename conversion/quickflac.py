@@ -2,18 +2,20 @@
 
 import os
 import sys
-from uvipy.sf import browse 
+from sympy import root
+import uvipy.sf as sf
 
 def flac(root_samples):
     cmd = "flac -8 \"{}\" --keep-foreign-metadata --channel-map=none"
-    for file in browse(root_samples):
+
+    for file in sf.browse(root_samples):
         cmdline = cmd.format(file)
         try:
             os.system(cmdline)
         except OSError as e:
             pass
     
-    for file in browse(root_samples):
+    for file in sf.browse(root_samples):
         if file.endswith(".wav"):
             os.remove(file)
 
