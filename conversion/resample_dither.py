@@ -14,7 +14,7 @@ def main(root_samples):
         loopinfo = tuple(loopinfo)
 
         newpath = os.path.join(os.path.split(sample)[0], f'_{os.path.split(sample)[1]}')
-        cmd = f'sox "{sample}" -b 16 "{newpath}" gain -1 rate 44100 dither -s -f gesemann'
+        cmd = f'sox "{sample}" -b 16 "{newpath}" rate 44100 dither -s -f gesemann'
 
         try:
             os.system(cmd)
