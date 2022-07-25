@@ -16,4 +16,5 @@ if __name__ == "__main__":
         print(f'Samples: {samples}')
         print(f'Presets: {presets}')
     else:
+        # print("-")
         print("usage: python <script> <base folder>")
