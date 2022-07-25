@@ -69,7 +69,7 @@ def main(folder, target_range, vel_layers):
 
             print(midi_to_note_name(note), ">>", os.path.split(nearest)[1], ">>", diff)
             if diff != 0:
-                x, sr = sf.read(nearest, always_2d=True)
+                x, sr = sf.read(nearest)
                 x = pitch_shift(x, diff)
                 new_fpath = nearest.replace(get_note_name(nearest), midi_to_note_name(note))
                 sf.write(new_fpath, x, sr)  

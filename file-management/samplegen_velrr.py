@@ -46,7 +46,7 @@ def main(root_samples, target_range, vel_layers, numrr):
                                     direction = -1
                         else:
                             print("repitch", new_filename, "to", filename, "with offset", offset * -direction)                            
-                            x, sr = sf.read(new_filepath, always_2d=True)
+                            x, sr = sf.read(new_filepath)
                             x = pitch_shift(x, offset * -direction)
                             sf.write(filepath, x, sr, subtype=sf.info(new_filepath).subtype)
                             found = True
