@@ -4,14 +4,22 @@
 import os
 import uvipy.sf as sf
 
+def flac_browse(folder):
+    matches = []
+    for root, _, files in os.walk(folder):
+        for f in files:
+            if not f.endswith(".flac"): continue
+            matches.append(os.path.join(root, f))
+    return matches
+
 def cmd_execute(cmd):
     try:
         os.system(cmd)
     except OSError as e:
-        pass    
+        pass
 
 def main(root_samples):
-    for sample in sf.browse(root_samples):
+    for sample in flac_browse(root_samples):
         iswav = False
         try:
             _, _ = sf.read(sample)
