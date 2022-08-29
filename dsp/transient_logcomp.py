@@ -22,34 +22,34 @@ def binarize(data, threshold):
         bin.append(value)
     return bin, index
 
-def spectral_logcomp(x, sr, threshold):
-    # index needs to be converted to sample. may affect precision
-    # stft config
-    nperseg = 512
-    window = signal.windows.nuttall(nperseg, sym=False)
-    noverlap = int(nperseg * 3/4)
+# def spectral_logcomp(x, sr, threshold):
+#     # TEST
+#     # stft config
+#     nperseg = 512
+#     window = signal.windows.nuttall(nperseg, sym=False)
+#     noverlap = int(nperseg * 3/4)
 
-    zxx = signal.stft(x, fs=sr, window=window, noverlap=noverlap, nperseg=nperseg, boundary="constant")[2]
+#     zxx = signal.stft(x, fs=sr, window=window, noverlap=noverlap, nperseg=nperseg, boundary="constant")[2]
 
-    C = 100
-    log = []
-    spectral_diff = []
-    for i in range(1, len(zxx[0])):
-        spectral_diff.append(sum((abs(zxx[:,i]) - abs(zxx[:,i-1]))**2))
-        log.append(sum(abs(np.log10(1 + C * zxx[:,i])) - abs(np.log10(1 + C * zxx[:,i-1]))))
+#     C = 100
+#     log = []
+#     spectral_diff = []
+#     for i in range(1, len(zxx[0])):
+#         spectral_diff.append(sum((abs(zxx[:,i]) - abs(zxx[:,i-1]))**2))
+#         log.append(sum(abs(np.log10(1 + C * zxx[:,i])) - abs(np.log10(1 + C * zxx[:,i-1]))))
 
-    log /= np.amax(np.abs(log))
+#     log /= np.amax(np.abs(log))
 
-    diff = np.diff(log)
-    diff = np.maximum(diff, 0)
-    diff /= np.amax(diff)
+#     diff = np.diff(log)
+#     diff = np.maximum(diff, 0)
+#     diff /= np.amax(diff)
 
-    bin, index = binarize(log, threshold)
+#     bin, index = binarize(log, threshold)
 
-    if plot:
-        plt.figure(); plt.grid()
-        plt.plot(diff, c="blue")
-        plt.plot(bin, c="red")
+#     if plot:
+#         plt.figure(); plt.grid()
+#         plt.plot(diff, c="blue")
+#         plt.plot(bin, c="red")
 
 # def butter_highpass(cutoff, fs, order=5):
 #     nyq = 0.5 * fs
