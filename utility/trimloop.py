@@ -6,7 +6,7 @@ import uvipy.sf as sf
 def main(folder):
     for sample in sf.browse(folder):
         print(os.path.split(sample)[1])
-        x, sr = sf.read(sample, always_2d=True)
+        x, sr = sf.read(sample)
         loopinfo = sf.get_chunks(sample)
 
         loopend = loopinfo[1]
