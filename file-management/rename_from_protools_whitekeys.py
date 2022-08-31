@@ -1,4 +1,5 @@
 #%% Rename file from ProTools output with RR option (ex: file_01.wav, file_03.wav, file_05.wav, etc.)
+# ONLY WHITE KEYS
 
 import os
 import re
@@ -16,13 +17,19 @@ def main(root_samples, startnote, rr):
     c = 0
     rrcount = 0
     samples = browse(root_samples)
+    whitekeys = ["C", "D", "E", "F", "G", "A", "B"]
+
     for sample in natsorted(samples):
         midisuffix = midi_to_note_name(startnote + c)
-        newpath = f'{sample.split("-")[0]}-{midisuffix}-rr0{rrcount + 1}.wav'
+        while midisuffix[:-1] not in whitekeys:
+            c += 1
+            midisuffix = midi_to_note_name(startnote + c)
+
+        newpath = f'{sample.split("-")[0]}-{midisuffix}.wav'
         print(newpath)
 
         rrcount = (rrcount + 1) % rr
-        os.rename(sample, newpath)
+        # os.rename(sample, newpath)
         if rrcount == 0:
             c += 1
 
