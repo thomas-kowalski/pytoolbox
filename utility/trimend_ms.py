@@ -15,7 +15,7 @@ def main(folder, ms):
 
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) == 2:
-        main(sys.argv[1])
+    if len(sys.argv) == 3:
+        main(sys.argv[1], int(sys.argv[2]))
     else:
-        print("usage: python <script> <folder>")
+        print("usage: python <script> <folder> <ms>")
