@@ -1,5 +1,5 @@
 #%% flac to wav conversion. all files needs to have .flac extension
-# NOT ROBUST for mixed wav/flac folders. using soundfile incapability of reading flac file for format detection.
+# NOT ROBUST for mixed wav/flac folders. using soundfile incapability of reading flac files for format detection.
 
 import os
 import uvipy.sf as sf
@@ -27,11 +27,17 @@ def main(root_samples):
         except:
             pass
 
+        fixed_path = ""
+        for i in range(len(sample)):
+            char = sample[i]
+            if char in [" ", "(", ")"]:
+                fixed_path += "\\"
+            fixed_path += char
+
         if iswav:
             os.rename(sample, sample.replace(".flac", ".wav"))
         else:
-            space = "\ "
-            cmd = f'flac -d --keep-foreign-metadata "{sample.replace(" ", space)}"'
+            cmd = f'flac -d --keep-foreign-metadata {fixed_path}'
             cmd_execute(cmd)
             os.remove(sample)
 
