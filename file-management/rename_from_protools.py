@@ -1,4 +1,4 @@
-#%% Rename file from ProTools output with RR option (ex: file_01.wav, file_03.wav, file_05.wav, etc.)
+#%% Rename file from ProTools output with RR option (ex: file-01.wav, file-03.wav, file-05.wav, etc.)
 
 import os
 import re
@@ -18,7 +18,8 @@ def main(root_samples, startnote, rr):
     samples = browse(root_samples)
     for sample in natsorted(samples):
         midisuffix = midi_to_note_name(startnote + c)
-        newpath = f'{sample.split("-")[0]}-{midisuffix}-rr0{rrcount + 1}.wav'
+        rrsuffix = rr != 1 and f'-rr0{rrcount + 1}' or ''
+        newpath = f'{sample.split("-")[0]}-{midisuffix}{rrsuffix}.wav'
         print(newpath)
 
         rrcount = (rrcount + 1) % rr
