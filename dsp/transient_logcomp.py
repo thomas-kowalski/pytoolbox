@@ -65,7 +65,7 @@ def binarize(data, threshold):
 def energy_logcomp(x, threshold):
     x /= np.amax(x)
 
-    N = 256
+    N = 128
     w = signal.windows.hann(N)
     w /= np.sum(w)
 
@@ -95,7 +95,7 @@ def main(root_samples):
         loopinfo = sf.get_chunks(sample)
 
         xcopy = deepcopy(x[:,0])
-        index = energy_logcomp(xcopy, 0.9)
+        index = energy_logcomp(xcopy, 0.95)
 
         finished = False
         if index > sr // 2:
@@ -111,11 +111,13 @@ def main(root_samples):
 
         if loopinfo[0]:
             loopinfo = (loopinfo[0] - index, loopinfo[1] - index)
-
-        sf.write(sample, x, sr, sf.info(sample).subtype, loopinfo)
         
+        x = x[index:]
+        for ch in range(x.shape[1]):
+            x[:10,ch] *= np.linspace(0, 1, 10)
+
         print("trim at index:", index, "\n")
-        sf.write(sample, x[index:], sr, sf.info(sample).subtype, loopinfo)
+        sf.write(sample, x, sr, sf.info(sample).subtype, loopinfo)
 
 if __name__ == "__main__":
     import sys
