@@ -31,7 +31,7 @@ def main(root_samples):
             os.rename(sample, sample.replace(".flac", ".wav"))
         else:
             space = "\ "
-            cmd = f'flac -d --keep-foreign-metadata {sample.replace(" ", space)}'
+            cmd = f'flac -d --keep-foreign-metadata "{sample.replace(" ", space)}"'
             cmd_execute(cmd)
             os.remove(sample)
 
