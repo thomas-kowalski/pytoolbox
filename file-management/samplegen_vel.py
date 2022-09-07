@@ -72,7 +72,7 @@ def main(folder, target_range, vel_layers):
                 x, sr = sf.read(nearest)
                 x = pitch_shift(x, diff)
                 new_fpath = nearest.replace(get_note_name(nearest), midi_to_note_name(note))
-                sf.write(new_fpath, x, sr)  
+                sf.write(new_fpath, x, sr, sf.info(nearest).subtype)  
 
 if __name__ == "__main__":
     import sys
