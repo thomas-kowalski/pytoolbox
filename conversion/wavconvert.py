@@ -2,6 +2,7 @@
 # NOT ROBUST for mixed wav/flac folders. using soundfile incapability of reading flac files for format detection.
 
 import os
+import subprocess
 import uvipy.sf as sf
 
 def flac_browse(folder):
@@ -12,13 +13,7 @@ def flac_browse(folder):
             matches.append(os.path.join(root, f))
     return matches
 
-def cmd_execute(cmd):
-    try:
-        os.system(cmd)
-    except OSError as e:
-        pass
-
-def main(root_samples):
+def main(root_samples, remove=False):
     for sample in flac_browse(root_samples):
         iswav = False
         try:
@@ -37,9 +32,13 @@ def main(root_samples):
         if iswav:
             os.rename(sample, sample.replace(".flac", ".wav"))
         else:
-            cmd = f'flac -d --keep-foreign-metadata {fixed_path}'
-            cmd_execute(cmd)
-            os.remove(sample)
+            try:
+                subprocess.check_output(f'flac -d --keep-foreign-metadata {fixed_path}', shell=True)
+            except:
+                subprocess.check_output(f'flac -d {fixed_path}', shell=True) 
+
+            if remove:
+                os.remove(sample)
 
 if __name__ == "__main__":
     import sys
