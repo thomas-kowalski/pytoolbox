@@ -23,7 +23,7 @@ def flac(root_samples):
     for file in sf.browse(root_samples):
         if file.endswith(".flac"):
             os.rename(file, file.replace(".flac", ".wav"))
-
+    
 if __name__ == "__main__":
     if len(sys.argv) == 2:
         flac(sys.argv[1])

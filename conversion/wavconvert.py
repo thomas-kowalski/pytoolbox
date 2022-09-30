@@ -13,7 +13,7 @@ def flac_browse(folder):
             matches.append(os.path.join(root, f))
     return matches
 
-def main(root_samples, remove=False):
+def main(root_samples, remove=True):
     for sample in flac_browse(root_samples):
         iswav = False
         try:
