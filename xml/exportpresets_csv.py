@@ -22,10 +22,11 @@ def main(root_presets):
         for f in files:
             if not f.endswith(".uvip") or "._" in f: continue
             key = os.path.split(root)[1]
-            if key not in data.keys():
-                data[key] = []
+            filename = os.path.splitext(f)[0] 
+            if not key in data.keys():
+                data[key] = [filename]
             else:
-                data[key].append(os.path.splitext(f)[0])
+                data[key].append(filename)
 
     header = ["Delivery Date", "Preset Name"]
     with open(csvpath, 'w', newline='') as f:
