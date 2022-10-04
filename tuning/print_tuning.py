@@ -24,7 +24,7 @@ def main(preset, root_samples):
         print(os.path.split(samplepath)[1], finetune/100)
         x = pitch_shift(x, finetune / 100)
 
-        sf.write(samplepath, x, sr)
+        sf.write(samplepath, x, sr, sf.info(samplepath).subtype)
 
 if __name__ == "__main__":
     import sys
