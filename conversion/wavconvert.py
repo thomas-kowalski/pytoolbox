@@ -9,7 +9,7 @@ def flac_browse(folder):
     matches = []
     for root, _, files in os.walk(folder):
         for f in files:
-            if not f.endswith(".flac"): continue
+            if not f.endswith(".flac") or "._" in f: continue
             matches.append(os.path.join(root, f))
     return matches
 
