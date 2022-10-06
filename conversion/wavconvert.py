@@ -26,6 +26,7 @@ def main(root_samples, auto_rename=True, remove=True):
         iswav = False
         try:
             _, _ = sf.read(sample)
+            print(os.path.split(sample)[1], "is WAV format")
             iswav = True
         except:
             pass
