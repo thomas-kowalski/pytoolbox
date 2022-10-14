@@ -72,11 +72,15 @@ def main(root_samples):
         except:
             pass
 
+        created_notes = []
         samples = browse(folder)
         for i in range(len(samples)):
             sample = samples[i]
 
             note = get_note_name(sample)
+            if note in created_notes:
+                continue
+
             midinote = note_from_name(note)
 
             new_keygroup = deepcopy(keygroup_template)
@@ -90,6 +94,7 @@ def main(root_samples):
             splayer.attrib["SamplePath"] = sample
 
             keygroups_node.append(new_keygroup)
+            created_notes.append(note)
 
         newtree.write(presetpath)
 
