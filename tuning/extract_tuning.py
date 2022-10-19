@@ -37,7 +37,6 @@ def extract_tuning(folder):
         for keygroup in root.findall(".//Keygroup"):
             splayer = keygroup.find(".//SamplePlayer")
             basenote = int(splayer.attrib["BaseNote"])
-            print(midi_to_note_name(basenote))
             tunevalue = int(splayer.attrib["CoarseTune"]) + float(splayer.attrib["FineTune"]) / 100.
             tuninginfos[basenote] = tunevalue
         
