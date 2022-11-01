@@ -19,7 +19,7 @@ def main(root_samples, startnote, rr):
     for sample in natsorted(samples):
         midisuffix = midi_to_note_name(startnote + c)
         rrsuffix = rr != 1 and f'-rr0{rrcount + 1}' or ''
-        newpath = f'{samples[:-6]}-{midisuffix}{rrsuffix}.wav'
+        newpath = f'{sample[:-6]}-{midisuffix}{rrsuffix}.wav'
         print(newpath)
 
         rrcount = (rrcount + 1) % rr
