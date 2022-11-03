@@ -44,9 +44,9 @@ def ufs2base(presets_folder, ufs_path, contains_ir=True):
             print("... fixing IR path ...")
             base_irpath = "./../../IRs/"
             for reverb in root.findall(".//SampledReverb"):
-                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/IRs/".format(ufs_name), base_irpath)
-                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/../IRs/".format(ufs_name), base_irpath)
-                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/./../IRs/".format(ufs_name), base_irpath)
+                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/IR/".format(ufs_name), base_irpath)
+                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/../IR/".format(ufs_name), base_irpath)
+                reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/./../IR/".format(ufs_name), base_irpath)
         
         try:
             # remove NeededFS node
