@@ -1,6 +1,7 @@
 #%% Convert UFS UVIP presets to base format (relative path) > may need path customization
 
 import os
+import numpy as np
 import xml.etree.ElementTree as ET
 
 def ufs2base(presets_folder, ufs_path, contains_ir=True):
@@ -42,12 +43,14 @@ def ufs2base(presets_folder, ufs_path, contains_ir=True):
         if contains_ir:
             # fix IRs path
             print("... fixing IR path ...")
-            base_irpath = "./../../IRs/"
-            for reverb in root.findall(".//SampledReverb"):
+            base_irpath = "./../../IR/"
+
+            for reverb in (root.findall(".//SampledReverb") + root.findall(".//Convolver")):
                 reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/IR/".format(ufs_name), base_irpath)
                 reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/../IR/".format(ufs_name), base_irpath)
                 reverb.attrib["SamplePath"] = reverb.attrib["SamplePath"].replace("${0}.ufs/Scripts/./../IR/".format(ufs_name), base_irpath)
         
+
         try:
             # remove NeededFS node
             print("... removing NeededFS node ...")
