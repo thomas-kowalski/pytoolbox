@@ -57,8 +57,14 @@ def main(root_samples):
         pass
 
     for folder in folders:
+        target_dir = os.path.join(basepath, os.path.split(os.path.dirname(folder))[1])
+        try:
+            os.mkdir(target_dir)
+        except:
+            pass
+
         foldername = os.path.split(folder)[1]
-        presetpath = f'{os.path.join(basepath, foldername)}.uvip'
+        presetpath = f'{os.path.join(target_dir, foldername)}.uvip'
 
         newtree = deepcopy(template_tree)
         newroot = newtree.getroot()
