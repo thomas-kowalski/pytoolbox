@@ -12,7 +12,7 @@ def uvip_browse(folder):
     uvip = []
     for root, _, files in os.walk(folder):
         for f in files:
-            if not f.endswith(".uvip"): continue
+            if not f.endswith(".uvip") or "._" in f: continue
             uvip.append(os.path.join(root, f))
     return uvip
 
@@ -112,11 +112,14 @@ def get_pitch(filepath,
     note_name = midi_to_note_name(note)
     return note, detune_cents, midi_pitch, f0, note_name
 
-def main(root_presets, root_samples):
+def main(root_presets, root_samples, output_file=True):
+
+    output = ""
     for preset in uvip_browse(root_presets):
-        print("-"*10)
-        print(os.path.splitext(os.path.split(preset)[1])[0])
-        print("-"*10)
+        filename = os.path.splitext(os.path.split(preset)[1])[0]
+        print(filename)
+        output += filename+"\n"
+
         tree = ET.parse(preset)
         root = tree.getroot()
 
@@ -137,17 +140,27 @@ def main(root_presets, root_samples):
                 coarse = (init_midi_note % 12) - (measured_note % 12)
                 if abs(coarse) == 11:
                     coarse = -1 * np.sign(coarse)
-                print(os.path.split(samplepath)[1], "> coarse:", coarse, "fine:", fine)
+                
+                log = f'{os.path.split(samplepath)[1]} > coarse: {coarse}, fine: {fine}'
+                print(log)
+                output += log+"\n"
 
             except:
-                print("!"*15, os.path.split(samplepath)[1], "> ERROR, setting coarse and fine to 0", "!"*15)
+                log = f'!!!!!!!!! {os.path.split(samplepath)[1]} > ERROR, setting coarse and fine to 0 !!!!!!!'
+                output += log+"\n"
+                print(log)
             
             splayer.attrib["CoarseTune"] = str(coarse)
             splayer.attrib["FineTune"] = str(fine)
 
+        output+="\n"
         print("... writing preset ...")
         tree.write(preset)
         print("\n")
+
+    if output_file:
+        with open(os.path.join(os.path.split(root_presets)[0], "TUNING LOG.txt"), "w") as f:
+            f.write(output)
 
 if __name__ == "__main__":
     import sys
