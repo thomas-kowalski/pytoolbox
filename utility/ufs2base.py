@@ -4,7 +4,7 @@ import os
 import numpy as np
 import xml.etree.ElementTree as ET
 
-def ufs2base(presets_folder, ufs_path, contains_ir=True):
+def ufs2base(presets_folder, ufs_path, contains_ir=False):
     presets = []
     for root, _, files in os.walk(presets_folder):
         for f in files:
