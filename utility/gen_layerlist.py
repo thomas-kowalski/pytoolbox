@@ -9,6 +9,15 @@ def natsorted(l):
     return sorted(l, key=alphanum_key)
 
 def main(root_samples):
+    allsamples = []
+    for root, _, files in os.walk(root_samples):
+        for f in files:
+            if ".DS_Store" in f:
+                try:
+                    os.remove(os.path.join(root, f))
+                except:
+                    pass
+
     folders = []
     for root, dirs, files in os.walk(root_samples):
         if len(dirs) == 0: continue
