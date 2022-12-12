@@ -17,6 +17,6 @@ def main(root_samples, semitone_offset):
 if __name__ == "__main__":
     import sys
     if len(sys.argv) == 3:
-        main(sys.argv[1], sys.argv[2])
+        main(sys.argv[1], int(sys.argv[2]))
     else:
         print("usage: python <script> <samples folder> <semitones offset>")
