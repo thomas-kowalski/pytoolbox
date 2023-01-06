@@ -11,7 +11,7 @@ if __name__ == "__main__":
                 if "._" in f: continue
                 if f.endswith(".wav"):
                     samples += 1
-                if f.endswith(".uvip"):
+                if f.endswith(".uvip") or f.endswith(".M5p"):
                     presets += 1
         print(f'Samples: {samples}')
         print(f'Presets: {presets}')
