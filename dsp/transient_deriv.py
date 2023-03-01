@@ -17,7 +17,7 @@ def main(folder, threshold, plot=False):
     for sample in samples:
         if "._" in sample: continue
         print(os.path.split(sample)[1])
-        x, sr = sf.read(sample, always_2d=True)
+        x, sr = sf.read(sample)
 
         N = 64
         w = signal.windows.hann(N)
